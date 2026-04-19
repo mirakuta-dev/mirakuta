@@ -24,9 +24,17 @@ profile.cov
 go.work
 go.work.sum
 
+# Generated logs
+logs/
+
 # env file
 .env
 
 # Editor/IDE
 # .idea/
 # .vscode/
+
+# Claude Code
+.claude/
+.claudeignore
+*.claude
