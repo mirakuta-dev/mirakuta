@@ -1,0 +1,12 @@
+name: data
+description: "Data and ML development: Python, uv, Jupyter."
+extends: [minimal]
+languages:
+  - python
+editors:
+  - id: vscode
+    extensions:
+      - ms-python.python
+      - ms-toolsai.jupyter
+tools:
+  - { id: uv, via: winget, pkg: astral-sh.uv }
