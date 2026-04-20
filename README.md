@@ -15,7 +15,7 @@ extensions so you can start coding, not scripting.
 ## Install
 
 ```powershell
-irm https://raw.githubusercontent.com/mirakuta-dev/mirakuta/main/install.ps1 | iex
+irm https://mirakuta.dev/install.ps1 | iex
 ```
 
 The installer:
