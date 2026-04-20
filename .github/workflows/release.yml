@@ -1,0 +1,69 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: build-${{ matrix.arch }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [amd64, arm64]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Test
+        run: go test ./...
+
+      - name: Build Windows ${{ matrix.arch }}
+        env:
+          GOOS: windows
+          GOARCH: ${{ matrix.arch }}
+          CGO_ENABLED: "0"
+        run: |
+          mkdir -p dist
+          LDFLAGS="-s -w -X github.com/mirakuta-dev/mirakuta/internal/cli.Version=${GITHUB_REF_NAME}"
+          go build -ldflags "${LDFLAGS}" -o dist/mirakuta-windows-${{ matrix.arch }}.exe ./cmd/mirakuta
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mirakuta-windows-${{ matrix.arch }}
+          path: dist/mirakuta-windows-${{ matrix.arch }}.exe
+          retention-days: 1
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Generate checksums
+        run: |
+          cd dist
+          sha256sum mirakuta-windows-*.exe > checksums.txt
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/mirakuta-windows-amd64.exe
+            dist/mirakuta-windows-arm64.exe
+            dist/checksums.txt
+          generate_release_notes: true
