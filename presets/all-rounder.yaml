@@ -1,0 +1,3 @@
+name: all-rounder
+description: "Everything: fullstack + data. Good default for generalists."
+extends: [fullstack, data]
