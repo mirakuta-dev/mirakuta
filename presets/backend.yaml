@@ -1,0 +1,14 @@
+name: backend
+description: "Server-side development: Go, Node, containers, API tools."
+extends: [minimal]
+languages:
+  - go
+  - node
+editors:
+  - id: vscode
+    extensions:
+      - golang.Go
+      - dbaeumer.vscode-eslint
+tools:
+  - { id: docker-desktop, via: winget, pkg: Docker.DockerDesktop }
+  - { id: postman, via: winget, pkg: Postman.Postman }

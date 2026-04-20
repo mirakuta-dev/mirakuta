@@ -1,0 +1,14 @@
+name: frontend
+description: "Web frontend development: Node, package manager, browser, design tool."
+extends: [minimal]
+languages:
+  - node
+editors:
+  - id: vscode
+    extensions:
+      - esbenp.prettier-vscode
+      - dbaeumer.vscode-eslint
+tools:
+  - { id: pnpm, via: winget, pkg: pnpm.pnpm }
+  - { id: chrome, via: winget, pkg: Google.Chrome }
+  - { id: figma, via: winget, pkg: Figma.Figma }
