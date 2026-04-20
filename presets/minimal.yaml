@@ -1,0 +1,10 @@
+name: minimal
+description: "Minimum baseline every preset extends from: git, shell, terminal, editor."
+terminals:
+  - windows-terminal
+  - pwsh
+editors:
+  - id: vscode
+    extensions: []
+tools:
+  - { id: git, via: winget, pkg: Git.Git }
