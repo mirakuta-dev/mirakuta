@@ -20,6 +20,13 @@ var editorTools = map[string][]Tool{
 	"intellij": {{ID: "intellij", Via: "winget", Pkg: "JetBrains.IntelliJIDEA.Community"}},
 }
 
+// ExpandForWizard produces a fully-resolved Preset from a wizard-generated one
+// whose high-level keys have not been expanded yet.
+func ExpandForWizard(p Preset) Preset {
+	p.Tools = expandHighLevel(p)
+	return p
+}
+
 // expandHighLevel turns a preset's high-level keys (languages, terminals, editors)
 // into concrete Tool entries, merged with the explicit tools list.
 // Later entries with the same Tool.ID override earlier ones to keep the list unique.
