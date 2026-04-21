@@ -37,4 +37,4 @@ logs/
 # Claude Code
 .claude/
 .claudeignore
-*.claude
+CLAUDE.md
